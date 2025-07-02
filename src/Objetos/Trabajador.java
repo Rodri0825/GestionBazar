@@ -6,15 +6,17 @@ public class Trabajador
     private String DNI;
     private String telefono;
     private double sueldo;
+    private String codigo;
 
     public Trabajador(){}
 
-    public Trabajador(boolean rol, String nombreTrabajador, String DNI, String telefono, double sueldo) {
+    public Trabajador(boolean rol, String nombreTrabajador, String DNI, String telefono, double sueldo, String codigo) {
         this.rol = rol;
         this.nombreTrabajador = nombreTrabajador;
         this.DNI = DNI;
         this.telefono = telefono;
         this.sueldo = sueldo;
+        this.codigo = codigo;
     }
 
     public boolean isRol() {
@@ -55,5 +57,13 @@ public class Trabajador
 
     public void setSueldo(double sueldo) {
         this.sueldo = sueldo;
+    }
+    public String getCodigo()
+    {
+        return codigo;
+    }
+    public void setCodigo(String codigo) 
+    {
+    this.codigo = codigo;
     }
 }

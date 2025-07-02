@@ -12,9 +12,9 @@ public class Administrador extends Trabajador
         super();
     }
 
-    public Administrador(boolean rol, String nombre, String dni, String telefono, double sueldo) 
+    public Administrador(boolean rol, String nombre, String dni, String telefono, double sueldo, String codigo) 
     {
-        super(rol, nombre, dni, telefono, sueldo);
+        super(rol, nombre, dni, telefono, sueldo, codigo);
     }
 
     public List<Empleado> getEmpleados() 

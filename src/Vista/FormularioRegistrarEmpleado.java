@@ -1,14 +1,21 @@
 package Vista;
 
-
+import Controladores.AdministradorControlador;
+import Controladores.EmpleadoControlador;
+import Objetos.Empleado;
+import javax.swing.JOptionPane;
 
 public class FormularioRegistrarEmpleado extends javax.swing.JDialog {
 
+    private AdministradorControlador adminControlador;
+    private EmpleadoControlador empleadoControlador;
     
-    public FormularioRegistrarEmpleado(java.awt.Frame parent, boolean modal) 
+    public FormularioRegistrarEmpleado(java.awt.Frame parent, boolean modal, AdministradorControlador adminControlador, EmpleadoControlador empleadoControlador) 
     {
         super(parent, modal);
         initComponents();
+        this.adminControlador = adminControlador;
+        this.empleadoControlador = empleadoControlador;
 
     }
     
@@ -56,6 +63,11 @@ public class FormularioRegistrarEmpleado extends javax.swing.JDialog {
         txtSueldo.setText("Sueldo");
 
         btnGuardarEmpleado.setText("Registrar");
+        btnGuardarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarEmpleadoActionPerformed(evt);
+            }
+        });
 
         txtCodigo.setText("Codigo del emplado");
 
@@ -124,44 +136,109 @@ public class FormularioRegistrarEmpleado extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreEmpleadoActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioRegistrarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioRegistrarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioRegistrarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioRegistrarEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void btnGuardarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEmpleadoActionPerformed
+        
+        String rol = cmbRolSeleccionado.getSelectedItem().toString().trim();
+        String nombre = txtNombreEmpleado.getText().trim();
+        String dni = txtDNIEmpleado.getText().trim();
+        String telefono = txtTelefonoEmpleado.getText().trim();
+        String sueldoTexto = txtSueldoEmpleado.getText().trim();
+        String codigo = txtCodigoEmpleado.getText().trim();
+        
+        //Validamos el Rol
+        if (rol.equals("Selecciona"))
+        {
+            JOptionPane.showMessageDialog(this, "Debes seleccionar uno de los roles");
+            return;
         }
-        //</editor-fold>
+        if (!rol.equalsIgnoreCase("Empleado") && !rol.equalsIgnoreCase("Administrador")) {
+            JOptionPane.showMessageDialog(this, "Rol no válido. Solo se permite 'Empleado' o 'Administrador'");
+            return;
+        }
+        //Convertimos el rol a boolean: true es admin y false empleado
+        boolean esAdmin = rol.equalsIgnoreCase("Administrador");
+        
+        //Validamos Nombre
+        if (nombre.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "El campo nombre no debe estar vacío");
+            return;
+        }
+        if (empleadoControlador.nombreExiste(nombre)) 
+        {
+            JOptionPane.showMessageDialog(this, "Ya está registrado el empleado con ese nombre");
+            return;
+        }
+        //Validamos DNI
+        if (dni.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "El DNI no puede ser vacío");
+            return;
+        }
+        if (!dni.matches("\\d{8}")) 
+        {
+            JOptionPane.showMessageDialog(this, "El DNI debe contener exactamente 8 dígitos numéricos");
+            return;
+        }
+        if (empleadoControlador.dniExiste(dni)) 
+        {
+            JOptionPane.showMessageDialog(this, "Ya se ha registrado una persona con ese DNI");
+            return;
+        }
+        //Verificamos Numero de telefono
+        if (telefono.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "El número de teléfono no puede ser nulo");
+            return;
+        }
+        if (!telefono.matches("9\\d{8}")) 
+        {
+            JOptionPane.showMessageDialog(this, "El teléfono debe tener 9 dígitos y comenzar con 9");
+            return;
+        }
+        if (empleadoControlador.telefonoExiste(telefono)) 
+        {
+            JOptionPane.showMessageDialog(this, "El número de teléfono no puede ser repetido");
+            return;
+        }
+        //Validamos Sueldo
+        if (sueldoTexto.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "Debes completar este campo");
+            return;
+        }
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FormularioRegistrarEmpleado dialog = new FormularioRegistrarEmpleado(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+        double sueldo;
+        try 
+        {
+            sueldo = Double.parseDouble(sueldoTexto);
+            if (sueldo <= 0) 
+            {
+                JOptionPane.showMessageDialog(this, "Haz ingresado un dato inválido");
+                return;
             }
-        });
-    }
+        } catch (NumberFormatException e) 
+        {
+            JOptionPane.showMessageDialog(this, "El sueldo debe ser de tipo double");
+            return;
+        }
+        //Validamos Codigo del empleado
+        if (codigo.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "El código del empleado no puede ser nulo");
+            return;
+        }
+        if (empleadoControlador.codigoExiste(codigo)) 
+        {
+            JOptionPane.showMessageDialog(this, "Ya existe un empleado con ese código");
+            return;
+        }
+        Empleado nuevo = new Empleado(esAdmin, nombre, dni, telefono, sueldo, codigo);
+        empleadoControlador.registrarEmpleado(nuevo);
+        
+        JOptionPane.showMessageDialog(this, "Empleado registrado con éxito");
+        this.dispose();
+    }//GEN-LAST:event_btnGuardarEmpleadoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarEmpleado;

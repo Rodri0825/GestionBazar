@@ -10,11 +10,9 @@ public class Empleado extends Trabajador
 
     public Empleado() {
     }
-
-    public Empleado(boolean rol, String nombreTrabajador, String DNI, String telefono, double sueldo, List<Producto> ventas, Administrador administrador) {
-        super(rol, nombreTrabajador, DNI, telefono, sueldo);
-        this.ventas = ventas;
-        this.Jefe = administrador;
+    
+    public Empleado(boolean rol, String nombre, String dni, String telefono, double sueldo, String codigo) {
+        super(rol, nombre, dni, telefono, sueldo, codigo);
     }
 
     public List<Producto> getVentas() {

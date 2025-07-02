@@ -29,7 +29,7 @@ public class VentaAdmin extends javax.swing.JFrame
             }
         });
 
-        btnVerProductos.setText("Ver Prodructoos");
+        btnVerProductos.setText("Ver Prodructos");
         btnVerProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerProductosActionPerformed(evt);
