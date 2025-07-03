@@ -1,16 +1,23 @@
 package Vista;
 
 import Controladores.AdministradorControlador;
+import Controladores.EmpleadoControlador;
 import Vista.FormularioRegistrarProducto;
+import Vista.FormularioRegistrarEmpleado;
+import Vista.FormularioVerProductos;
+import Vista.FormularioVerEmpleados;
+import Vista.Login;
 
 public class VentaAdmin extends javax.swing.JFrame 
 {
     private AdministradorControlador adminControlador;
+    private EmpleadoControlador empleadoControlador;
     
-    public VentaAdmin(AdministradorControlador adminControlador) 
+    public VentaAdmin(AdministradorControlador adminControlador, EmpleadoControlador empleadoControlador) 
     {
         initComponents();
         this.adminControlador = adminControlador;
+        this.empleadoControlador = empleadoControlador;
     }
     
     @SuppressWarnings("unchecked")
@@ -19,20 +26,44 @@ public class VentaAdmin extends javax.swing.JFrame
 
         btnRegistrarProducto = new javax.swing.JButton();
         btnVerProductos = new javax.swing.JButton();
+        btnRegistrarEmpleado = new javax.swing.JButton();
+        btnVerEmpleados = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnRegistrarProducto.setText("Registrar Producto");
+        btnRegistrarProducto.setText("Registrar producto");
         btnRegistrarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarProductoActionPerformed(evt);
             }
         });
 
-        btnVerProductos.setText("Ver Prodructos");
+        btnVerProductos.setText("Ver productos");
         btnVerProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerProductosActionPerformed(evt);
+            }
+        });
+
+        btnRegistrarEmpleado.setText("Registrar empleado");
+        btnRegistrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarEmpleadoActionPerformed(evt);
+            }
+        });
+
+        btnVerEmpleados.setText("Ver empleados");
+        btnVerEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerEmpleadosActionPerformed(evt);
+            }
+        });
+
+        btnCerrarSesion.setText("Cerrar sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -41,20 +72,35 @@ public class VentaAdmin extends javax.swing.JFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(btnRegistrarProducto)
-                .addGap(89, 89, 89)
-                .addComponent(btnVerProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRegistrarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRegistrarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(109, 109, 109)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnVerProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVerEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(227, 227, 227)
+                        .addComponent(btnCerrarSesion)))
+                .addContainerGap(217, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(336, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
         pack();
@@ -66,21 +112,33 @@ public class VentaAdmin extends javax.swing.JFrame
     }//GEN-LAST:event_btnRegistrarProductoActionPerformed
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
-        // TODO add your handling code here:
+        FormularioVerProductos verProductos = new FormularioVerProductos(this, true, adminControlador);
+        verProductos.setLocationRelativeTo(this);
+        verProductos.setVisible(true);
     }//GEN-LAST:event_btnVerProductosActionPerformed
 
-    public static void main(String args[]) 
-    {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() 
-            {
-                AdministradorControlador adminControlador = new AdministradorControlador();
-                new VentaAdmin(adminControlador).setVisible(true);
-            }
-        });
-    }
+    private void btnRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEmpleadoActionPerformed
+        FormularioRegistrarEmpleado formulario = new FormularioRegistrarEmpleado(this, true, adminControlador, empleadoControlador);
+        formulario.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarEmpleadoActionPerformed
+
+    private void btnVerEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEmpleadosActionPerformed
+        FormularioVerEmpleados formulario = new FormularioVerEmpleados(this, true, empleadoControlador);
+        formulario.setVisible(true);
+    }//GEN-LAST:event_btnVerEmpleadosActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        this.dispose();
+        Login login = new Login();
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnRegistrarEmpleado;
     private javax.swing.JButton btnRegistrarProducto;
+    private javax.swing.JButton btnVerEmpleados;
     private javax.swing.JButton btnVerProductos;
     // End of variables declaration//GEN-END:variables
 }

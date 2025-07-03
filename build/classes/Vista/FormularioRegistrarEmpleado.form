@@ -25,20 +25,28 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="cmbRol" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
-                  <Component id="txtNombreEmpleado" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="cmbRolSeleccionado" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtDNI" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="txtDNIEmpleado" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                  <Component id="txtTelefonoEmpleado" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                  <Component id="txtSueldo" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
-                  <Component id="txtSueldoEmpleado" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
                   <Component id="btnGuardarEmpleado" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCodigoEmpleado" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                  <Component id="txtNombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCodigo" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtNombreEmpleado" alignment="0" pref="71" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="txtDNI" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtDNIEmpleado" alignment="0" pref="71" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="txtTelefono" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtTelefonoEmpleado" alignment="0" pref="71" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="txtSueldo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtSueldoEmpleado" alignment="0" pref="71" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="txtCodigoEmpleado" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="331" max="32767" attributes="0"/>
           </Group>
@@ -89,7 +97,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
             <StringItem index="0" value="Selecciona"/>
-            <StringItem index="1" value="Empleaddo"/>
+            <StringItem index="1" value="Empleado"/>
             <StringItem index="2" value="Aministrador"/>
           </StringArray>
         </Property>
