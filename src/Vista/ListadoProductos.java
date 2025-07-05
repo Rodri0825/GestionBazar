@@ -19,7 +19,8 @@ public class ListadoProductos extends javax.swing.JDialog
     }
     private void cargarTablaProductos() 
     {
-        List<Producto> productos = adminControlador.obtenerProductos();
+        Controladores.ProductoDAO dao = new Controladores.ProductoDAO();
+        List<Producto> productos = dao.obtenerTodosLosProductos();
         
         DefaultTableModel model = (DefaultTableModel) tablaProductos.getModel();
         model.setRowCount(0); //Limpia la tabla antes de llenarla
@@ -33,7 +34,12 @@ public class ListadoProductos extends javax.swing.JDialog
                 p.getStock(),
                 p.getPrecio()
                 };
-        model.addRow(fila);
+            model.addRow(fila);
+        }
+        tablaProductos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        if (productos.isEmpty()) 
+        {
+            javax.swing.JOptionPane.showMessageDialog(this, "No hay productos registrados.");
         }
     }
     @SuppressWarnings("unchecked")

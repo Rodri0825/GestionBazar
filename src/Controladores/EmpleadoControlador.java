@@ -1,7 +1,6 @@
 package Controladores;
 
 import Objetos.Empleado;
-import Objetos.Producto;
 import Objetos.Venta;
 import java.util.ArrayList;
 import java.util.List;

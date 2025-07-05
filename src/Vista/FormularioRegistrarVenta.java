@@ -1,6 +1,6 @@
 package Vista;
 
-import Objetos.Producto;
+import Controladores.VentaDAO;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -113,42 +113,57 @@ public class FormularioRegistrarVenta extends javax.swing.JDialog {
     private void btnRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarVentaActionPerformed
         String codigo = txtCodigoProducto.getText().trim();
         String cantidadTexto = txtCantidad.getText().trim();
-        
-        //Verifica si la lista de compra esta vacia
-        if (codigo.isEmpty())
+
+        if (codigo.isEmpty()) 
         {
-            JOptionPane.showMessageDialog(this, "La lista de la compra está vacía");
+            JOptionPane.showMessageDialog(this, "Debe ingresar un código de producto");
             return;
         }
-        //Validacion de existencia de producto
+
         int cantidad;
         try 
         {
             cantidad = Integer.parseInt(cantidadTexto);
-            
+            if (cantidad <= 0) 
+            {
+                JOptionPane.showMessageDialog(this, "La cantidad de producto debe ser mayor a cero");
+                return;
+            }
         } catch (NumberFormatException e) 
         {
             JOptionPane.showMessageDialog(this, "La cantidad de producto debe ser un número entero");
             return;
         }
-        //Verificacion si la cantidad es positiva
-        if (cantidad <= 0) 
-        {
-            JOptionPane.showMessageDialog(this, "La cantidad de producto debe ser mayor a cero");
-            return;
-        }
-        //Validamos fecha actual
+
         String fecha = txtFecha.getText().trim();
         LocalDate hoy = LocalDate.now();
         String fechaActual = hoy.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        
-        if (!fecha.equals(fechaActual))
+
+        if (!fecha.equals(fechaActual)) 
         {
-            JOptionPane.showMessageDialog(this, "La venta debe tener una fecha actual");
+            JOptionPane.showMessageDialog(this, "La fecha debe ser la actual");
             return;
         }
-        JOptionPane.showMessageDialog(this, "Venta registrada exitosamente.");
-        this.dispose();
+
+        // Registrar venta en BD
+        VentaDAO dao = new VentaDAO();
+        String codigoEmpleado = ventanaEmpleado.getCodigoEmpleado();
+        boolean registrado = dao.registrarVenta(codigo, cantidad, fecha, codigoEmpleado);
+
+        if (registrado) 
+        {
+            JOptionPane.showMessageDialog(this, "Venta registrada exitosamente en la base de datos.");
+
+            // Agregar a lista local de ventas (para ver mis ventas)
+            if (ventanaEmpleado != null) 
+            {
+                ventanaEmpleado.agregarVenta(new String[]{codigo, String.valueOf(cantidad), fecha});
+            }
+            this.dispose();
+            } else 
+            {
+                JOptionPane.showMessageDialog(this, "Error al registrar la venta en la base de datos.");
+            }
     }//GEN-LAST:event_btnRegistrarVentaActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed

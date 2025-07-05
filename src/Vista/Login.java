@@ -1,12 +1,18 @@
 package Vista;
 
+import javax.swing.JOptionPane;
 import Controladores.AdministradorControlador;
 import Controladores.EmpleadoControlador;
-
+import Controladores.UsuarioDAO;
+import Vista.VentaAdmin;
+import Vista.VentaEmpleado;
+    
 public class Login extends javax.swing.JFrame {
 
-    public Login() {
+    public Login() 
+    {
         initComponents();
+        getRootPane().setDefaultButton(btnIniciarSesion);
     }
     
     @SuppressWarnings("unchecked")
@@ -103,21 +109,44 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         String usuario = txtUsuario.getText().trim();
-        String contraseña = new String(txtContraseña.getPassword()).trim();
-        
-        if (usuario.equals("admin") && contraseña.equals("1234")) 
+    String contraseña = new String(txtContraseña.getPassword()).trim();
+
+    // Verificar credenciales predefinidas de administrador
+    if (usuario.equals("admin") && contraseña.equals("1234")) 
+    {
+        AdministradorControlador adminControlador = new AdministradorControlador();
+        EmpleadoControlador empleadoControlador = new EmpleadoControlador();
+
+        VentaAdmin ventana = new VentaAdmin(adminControlador, empleadoControlador);
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
+        this.dispose();
+        return;
+    }
+
+    // Verificar en la base de datos para empleados
+    UsuarioDAO dao = new UsuarioDAO();
+    boolean valido = dao.validarCredenciales(usuario, contraseña);
+
+    if (valido) 
+    {
+        String nombreEmpleado = dao.obtenerNombrePorUsuario(usuario);
+        if (nombreEmpleado != null) 
         {
-            AdministradorControlador adminControlador = new AdministradorControlador();
-            EmpleadoControlador empleadoControlador = new EmpleadoControlador();
-            
-            VentaAdmin ventana = new VentaAdmin(adminControlador, empleadoControlador);
+            VentaEmpleado ventana = new VentaEmpleado(usuario, nombreEmpleado); // ✅ pasamos usuario como código
             ventana.setLocationRelativeTo(null);
             ventana.setVisible(true);
             this.dispose();
         }
-        else {javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");}
+        else
+        {
+            JOptionPane.showMessageDialog(this, "No se pudo obtener el nombre del empleado.");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+    }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
-
+  
     public static void main(String args[]) 
     {
 

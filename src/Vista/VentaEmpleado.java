@@ -4,9 +4,18 @@ package Vista;
 public class VentaEmpleado extends javax.swing.JFrame {
 
     private java.util.List<String[]> listaVentas = new java.util.ArrayList<>();
+    private String codigoEmpleado;
+    private String nombreEmpleado;
     
-    public VentaEmpleado() {
+    public VentaEmpleado(String codigoEmpleado, String nombreEmpleado) 
+    {
+        this.codigoEmpleado = codigoEmpleado;
+        this.nombreEmpleado = nombreEmpleado;
         initComponents();
+    }
+    public String getCodigoEmpleado()
+    {
+        return codigoEmpleado;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -80,8 +89,9 @@ public class VentaEmpleado extends javax.swing.JFrame {
         new Login().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
-    public void agregarVenta(String[] datosVenta) {
-    listaVentas.add(datosVenta);
+    public void agregarVenta(String[] datosVenta) 
+    {
+        listaVentas.add(datosVenta);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

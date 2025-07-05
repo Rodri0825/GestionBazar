@@ -111,4 +111,14 @@ public class AdministradorControlador
     {
         return usuarios;
     }
+    public Producto buscarProductoPorCodigo(String codigo) {
+    for (Producto p : productos) 
+    {
+        if (p.getCodigo().equalsIgnoreCase(codigo)) 
+        {
+            return p;
+        }
+    }
+        return null;
+    }
 }

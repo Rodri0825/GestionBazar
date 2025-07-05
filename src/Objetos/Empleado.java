@@ -1,46 +1,46 @@
 package Objetos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Empleado extends Trabajador
 {
-    private List<Producto> ventas = new ArrayList<>();
-    private Administrador Jefe;
+    private boolean esAdmin;
+    private String nombre;
+    private String dni;
+    private String telefono;
+    private double sueldo;
+    private String codigoEmpleado;
 
-    public Empleado() {
-    }
+    public Empleado() {}
     
-    public Empleado(boolean rol, String nombre, String dni, String telefono, double sueldo, String codigo) {
-        super(rol, nombre, dni, telefono, sueldo, codigo);
+    public Empleado(boolean esAdmin, String nombre, String dni, String telefono, double sueldo, String codigoEmpleado) {
+        this.esAdmin = esAdmin;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.sueldo = sueldo;
+        this.codigoEmpleado = codigoEmpleado;
     }
 
-    public List<Producto> getVentas() {
-        return ventas;
+    public boolean esAdmin() {
+        return esAdmin;
     }
 
-    public void setVentas(List<Producto> ventas) {
-        this.ventas = ventas;
+    public String getNombre() {
+        return nombre;
     }
 
-    public Administrador getJefe() {
-        return Jefe;
+    public String getDni() {
+        return dni;
     }
 
-    public void setJefe(Administrador administrador) {
-        this.Jefe = administrador;
+    public String getTelefono() {
+        return telefono;
     }
 
-    @Override
-    public String toString() {
-        return "Empleado: \n" +
-                "Ventas: " + getVentas() +
-                ", jefe: " + getJefe() +
-                "\n\nVentas: " + getVentas() +
-                ", rol: " + (isRol() ? "Administrador" : "Empleado") +
-                "\nNombre de trabajador: " + getNombreTrabajador() +
-                ", DNI: " + getDNI() +
-                ", telefono: " + getTelefono() +
-                ", sueldo: " + getSueldo();
+    public double getSueldo() {
+        return sueldo;
+    }
+
+    public String getCodigoEmpleado() {
+        return codigoEmpleado;
     }
 }

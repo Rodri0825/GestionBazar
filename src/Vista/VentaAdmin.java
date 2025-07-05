@@ -1,12 +1,12 @@
 package Vista;
 
-import Controladores.AdministradorControlador;
-import Controladores.EmpleadoControlador;
 import Vista.FormularioRegistrarProducto;
 import Vista.FormularioRegistrarEmpleado;
 import Vista.FormularioVerProductos;
 import Vista.FormularioVerEmpleados;
 import Vista.Login;
+import Controladores.AdministradorControlador;
+import Controladores.EmpleadoControlador;
 
 public class VentaAdmin extends javax.swing.JFrame 
 {
@@ -29,6 +29,7 @@ public class VentaAdmin extends javax.swing.JFrame
         btnRegistrarEmpleado = new javax.swing.JButton();
         btnVerEmpleados = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
+        btnModificarProducto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,12 +68,22 @@ public class VentaAdmin extends javax.swing.JFrame
             }
         });
 
+        btnModificarProducto.setText("Modificar producto");
+        btnModificarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarProductoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(btnCerrarSesion))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -83,8 +94,8 @@ public class VentaAdmin extends javax.swing.JFrame
                             .addComponent(btnVerProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnVerEmpleados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(btnCerrarSesion)))
+                        .addGap(217, 217, 217)
+                        .addComponent(btnModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(217, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,13 +105,15 @@ public class VentaAdmin extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(42, 42, 42)
+                .addComponent(btnModificarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
+                .addGap(32, 32, 32)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
@@ -112,18 +125,18 @@ public class VentaAdmin extends javax.swing.JFrame
     }//GEN-LAST:event_btnRegistrarProductoActionPerformed
 
     private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
-        FormularioVerProductos verProductos = new FormularioVerProductos(this, true, adminControlador);
+        FormularioVerProductos verProductos = new FormularioVerProductos(this, true);
         verProductos.setLocationRelativeTo(this);
         verProductos.setVisible(true);
     }//GEN-LAST:event_btnVerProductosActionPerformed
 
     private void btnRegistrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEmpleadoActionPerformed
-        FormularioRegistrarEmpleado formulario = new FormularioRegistrarEmpleado(this, true, adminControlador, empleadoControlador);
+        FormularioRegistrarEmpleado formulario = new FormularioRegistrarEmpleado(this, true, adminControlador);
         formulario.setVisible(true);
     }//GEN-LAST:event_btnRegistrarEmpleadoActionPerformed
 
     private void btnVerEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerEmpleadosActionPerformed
-        FormularioVerEmpleados formulario = new FormularioVerEmpleados(this, true, empleadoControlador);
+        FormularioVerEmpleados formulario = new FormularioVerEmpleados(this, true);
         formulario.setVisible(true);
     }//GEN-LAST:event_btnVerEmpleadosActionPerformed
 
@@ -134,8 +147,15 @@ public class VentaAdmin extends javax.swing.JFrame
         login.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
+        FormularioModificarProducto formulario = new FormularioModificarProducto(this, true, adminControlador, this);
+        formulario.setLocationRelativeTo(this);
+        formulario.setVisible(true);
+    }//GEN-LAST:event_btnModificarProductoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnModificarProducto;
     private javax.swing.JButton btnRegistrarEmpleado;
     private javax.swing.JButton btnRegistrarProducto;
     private javax.swing.JButton btnVerEmpleados;

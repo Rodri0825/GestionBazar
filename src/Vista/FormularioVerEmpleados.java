@@ -1,31 +1,29 @@
 package Vista;
 
-import Controladores.EmpleadoControlador;
 import Objetos.Empleado;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 public class FormularioVerEmpleados extends javax.swing.JDialog {
     
-    private EmpleadoControlador empleadoControlador;
+    private Controladores.EmpleadoDAO empleadoDAO = new Controladores.EmpleadoDAO();
     
-    public FormularioVerEmpleados(java.awt.Frame parent, boolean modal, EmpleadoControlador empleadoControlador) {
+    public FormularioVerEmpleados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.empleadoControlador = empleadoControlador;
         cargarEmpleadosEnTabla();
 
     }
     private void cargarEmpleadosEnTabla() {
         String[] columnas = {"Código", "Nombre", "DNI", "Teléfono", "Sueldo", "Rol"};
-        List<Empleado> lista = empleadoControlador.obtenerEmpleados();
+        List<Empleado> lista = empleadoDAO.obtenerTodosLosEmpleados();
         String[][] filas = new String[lista.size()][6];
 
         for (int i = 0; i < lista.size(); i++) {
             Empleado emp = lista.get(i);
-            filas[i][0] = emp.getCodigo();
-            filas[i][1] = emp.getNombreTrabajador();
-            filas[i][2] = emp.getDNI();
+            filas[i][0] = emp.getCodigoEmpleado();
+            filas[i][1] = emp.getNombre();
+            filas[i][2] = emp.getDni();
             filas[i][3] = emp.getTelefono();
             filas[i][4] = String.valueOf(emp.getSueldo());
             filas[i][5] = emp.isRol() ? "Administrador" : "Empleado";

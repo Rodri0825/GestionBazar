@@ -1,12 +1,14 @@
 package Vista;
 
 import Controladores.AdministradorControlador;
+import Controladores.ProductoDAO;
 import Objetos.Producto;
 import javax.swing.JOptionPane;
 
 public class FormularioRegistrarProducto extends javax.swing.JDialog {
 
     private AdministradorControlador adminControlador;
+    private ProductoDAO productoDAO = new ProductoDAO();
     
     //permite que esta ventana use el mismo controlador que la ventana principal
     // parent: quien lo llama
@@ -118,57 +120,37 @@ public class FormularioRegistrarProducto extends javax.swing.JDialog {
     //lo que se ejecutara al hacer click en el boton de "registrar producto"
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        
-       String codigo, nombre, marca;
-       int stock = -1;
-       double precio = -1;
+       String codigo = txtCodigo.getText().trim();
+       String nombre = txtNombre.getText().trim();
+       String marca = txtMarca.getText().trim();
+       int stock;
+       double precio;
+       
+       ProductoDAO dao = new ProductoDAO();
        
        //Verificacion de codigo
-        do 
-        {            
-            codigo = txtCodigo.getText().trim();//para estetica, quita espacios al inicio y al final
-            if (codigo.isEmpty()) 
-            {
-                JOptionPane.showMessageDialog(this, "Este campo no puede ser vacio"); //verifica que el campo no este vacio
-                return;
-            }
-            
-            boolean codigoExiste = false; //en caso el codigo ya exista
-            
-            for (Producto p : adminControlador.obtenerProductos()) 
-            {
-                if (p.getCodigo().equalsIgnoreCase(codigo))
-                {
-                    JOptionPane.showMessageDialog(this, "El codigo del producto ya existe");
-                    codigoExiste = true;
-                    return;
-                }
-            }
-            if (!codigoExiste) break;
-        } while (true);
+        if (codigo.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "Este campo no puede ser vacío");
+            return;
+        }
+        if (dao.existeProductoPorCodigo(codigo)) 
+        {
+            JOptionPane.showMessageDialog(this, "El código del producto ya existe en la base de datos.");
+            return;
+        }
        
        //Verificacion de nombre
-        do 
-        {            
-            nombre = txtNombre.getText().trim();
-            if (nombre.isEmpty()) 
-            {
-                JOptionPane.showMessageDialog(this, "Este campo no puede ser vacio"); //Verifica que el campo este lleno
-                return;
-            }
-            
-            boolean nombreExiste = false;
-            
-            for (Producto p : adminControlador.obtenerProductos()) 
-            {
-                if (p.getNombre().equalsIgnoreCase(nombre)) 
-                {
-                    JOptionPane.showMessageDialog(this, "El producto ya existe"); //Verifica si el nombre ya existe o no
-                    nombreExiste = true;
-                    return;
-                }
-            }
-            if (!nombreExiste) break;
-        } while (true);
+        if (nombre.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "Este campo no puede ser vacío");
+            return;
+}
+        if (dao.existeProductoPorNombre(nombre)) 
+        {
+            JOptionPane.showMessageDialog(this, "Ya existe un producto con ese nombre en la base de datos.");
+            return;
+        }
         
         //Verificacion de marca
         marca = txtMarca.getText().trim();
@@ -218,10 +200,16 @@ public class FormularioRegistrarProducto extends javax.swing.JDialog {
         
         //Creacion y registro
         Producto nuevo = new Producto(codigo, nombre, marca, stock, precio);
-        adminControlador.registrarProducto(nuevo);
         
-        JOptionPane.showMessageDialog(this, "Producto registrado con éxito.");
-        this.dispose(); //cierra el formulario
+        if (dao.registrarProducto(nuevo))
+        {
+            JOptionPane.showMessageDialog(this, "Producto registrado correctamente en la base de datos.");
+            this.dispose(); // Cierra el formulario solo si el registro fue exitoso
+        }
+        else 
+        {
+            JOptionPane.showMessageDialog(this, "Error al registrar el producto en la base de datos.");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

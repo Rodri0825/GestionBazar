@@ -23,6 +23,10 @@ public class FormularioVerVentas extends javax.swing.JDialog {
             filas[i] = ventas.get(i);
         }
         jTablaVentas.setModel(new DefaultTableModel(filas, columnas));
+        if (ventas.isEmpty()) 
+        {
+            javax.swing.JOptionPane.showMessageDialog(this, "No hay ventas registradas.");
+        }
     }
 
     @SuppressWarnings("unchecked")

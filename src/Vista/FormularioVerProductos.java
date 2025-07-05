@@ -1,30 +1,29 @@
 package Vista;
 
-import Controladores.AdministradorControlador;
 import Objetos.Producto;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class FormularioVerProductos extends javax.swing.JDialog 
 {
-    private Controladores.AdministradorControlador adminControlador;
+    private Controladores.ProductoDAO productoDAO = new Controladores.ProductoDAO();
 
-    public FormularioVerProductos(java.awt.Frame parent, boolean modal, Controladores.AdministradorControlador adminControlador) 
+    public FormularioVerProductos(java.awt.Frame parent, boolean modal) 
     {
         super(parent, modal);
         initComponents();
-        this.adminControlador = adminControlador;
         cargarProductosEnTabla(); // Mostramos los productos en la tabla al iniciar
     }
 
     private void cargarProductosEnTabla() 
     {
+        List<Producto> productos = productoDAO.obtenerTodosLosProductos(); // Cargamos desde BD
         String[] columnas = {"Código", "Nombre", "Marca", "Stock", "Precio"};
-        List<Objetos.Producto> lista = adminControlador.obtenerProductos();
-        String[][] filas = new String[lista.size()][5];
+        String[][] filas = new String[productos.size()][5];
 
-        for (int i = 0; i < lista.size(); i++) {
-            Objetos.Producto p = lista.get(i);
+        for (int i = 0; i < productos.size(); i++) {
+            Producto p = productos.get(i);
             filas[i][0] = p.getCodigo();
             filas[i][1] = p.getNombre();
             filas[i][2] = p.getMarca();
@@ -33,6 +32,11 @@ public class FormularioVerProductos extends javax.swing.JDialog
         }
 
         jTable1.setModel(new DefaultTableModel(filas, columnas));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);//Para expandir las columnas y no se vea estrecho
+        if (productos.isEmpty()) 
+        {
+            JOptionPane.showMessageDialog(this, "No hay productos registrados");
+        }
     } @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
