@@ -2,6 +2,9 @@ package Vista;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.table.JTableHeader;
 
 public class FormularioVerVentas extends javax.swing.JDialog {
     
@@ -12,7 +15,30 @@ public class FormularioVerVentas extends javax.swing.JDialog {
         this.ventas = ventas;
         initComponents();
         cargarVentas();
+        personalizarTabla();
     }
+    
+    private void personalizarTabla() 
+    {
+        jTablaVentas.setBackground(new Color(26, 26, 46)); // Fondo oscuro
+        jTablaVentas.setForeground(Color.WHITE); // Texto blanco
+        jTablaVentas.setGridColor(new Color(50, 50, 70)); // Líneas de celda
+        jTablaVentas.setSelectionBackground(new Color(22, 217, 155)); // Verde selección
+        jTablaVentas.setSelectionForeground(Color.BLACK); // Texto cuando se selecciona
+        jTablaVentas.setRowHeight(28); // Altura de filas
+
+        JTableHeader header = jTablaVentas.getTableHeader();
+        header.setBackground(new Color(22, 217, 155)); // Verde para encabezado
+        header.setForeground(Color.BLACK); // Texto negro
+        header.setFont(new Font("Segoe UI", Font.BOLD, 13)); // Fuente
+        
+        jScrollPane1.getViewport().setBackground(new Color(26, 26, 46)); // Fondo interno del scroll
+        jScrollPane1.setBackground(new Color(26, 26, 46)); // Borde exterior
+
+        // Opcional: remover bordes blancos si los tuviera
+        jScrollPane1.setBorder(null);
+    }
+    
     private void cargarVentas()
     {
         String[] columnas = {"Código", "Cantidad", "Fecha"};
@@ -49,6 +75,7 @@ public class FormularioVerVentas extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTablaVentas);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Historial de ventas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -56,14 +83,10 @@ public class FormularioVerVentas extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(190, 190, 190)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(166, 166, 166)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,8 +94,7 @@ public class FormularioVerVentas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
         );
 
         pack();
